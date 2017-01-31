@@ -27,14 +27,16 @@
 <div class="row">
 <div class="col-md-12">
 <form method="post" id="input" > 
+
 	<input  type="text" name="namn" id="tasklabel" placeholder="namn"/>
 	
     <input  type="text" name="antal" id="tasklabel" placeholder="antal"/>
     
     <input  type="text" name="lagerplats" id="tasklabel" placeholder="lagerplats"/>
     <br />
-	<input id="submit"  type="submit" value="Lägg till skiten">
+	<input id="submit"  type="submit" value="Lägg till">
 	<br />
+    <br />
 </form>
 </div>
 </div>

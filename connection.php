@@ -31,7 +31,6 @@ else {
     $sql = "INSERT INTO inventory (namn, antal, lagerplats)
     VALUES ('$namn', '$antal', '$lagerplats')";	
 	$conn->exec($sql);
-	echo "New record created successfully";
 }
 ?>
 
