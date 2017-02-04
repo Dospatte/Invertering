@@ -19,24 +19,24 @@
 
 <div class="row">
 <div id="header" class="header col-md-12">
-  <h1 class="page-header" id="header">Invertering</h1>
+  <h1 class="page-header" id="header">Inventering</h1>
 </div>
 </div>
 
-
+<!--Input -->
 <div class="row">
 <div class="col-md-12">
 <form method="post" id="input" > 
 
 	<input  type="text" name="namn" id="tasklabel" placeholder="namn"/>
 	
-    <input  type="text" name="antal" id="tasklabel" placeholder="antal"/>
+    <input  type="text" name="antal" id="tasklabel style="padding:200px;" placeholder="antal"/>
     
     <input  type="text" name="lagerplats" id="tasklabel" placeholder="lagerplats"/>
+    
     <br />
 	<input id="submit"  type="submit" value="Lägg till">
 	<br />
-    <br />
 </form>
 </div>
 </div>
@@ -46,15 +46,20 @@
 <div id="table" class="col-md-12">
   <?php
 echo "<table style='border: solid 1px black; margin: auto;	width: 50%; padding: 10px; text-align:center;'>";
-echo "<tr><th style='text-align:center; border: solid 1px black;'>Namn</th><th style='text-align:center; border: solid 1px black;'>Antal</th><th style='text-align:center; border: solid 1px black;'>Lagerplats</th></tr>";
+echo "<tr><th style='text-align:center; border: solid 1px black;'>Namn</th><th style='text-align:center; border: solid 1px black;'>Antal</th><th style='text-align:center; border: solid 1px black;'>Lagerplats</th><th style='text-align:center; border: solid 1px black;'>Ta bort</th></tr>";
 
-class TableRows extends RecursiveIteratorIterator { 
+/*class TableRows extends RecursiveIteratorIterator { 
     function __construct($it) { 
         parent::__construct($it, self::LEAVES_ONLY); 
     }
 
     function current() {
-        return "<td style='width:150px; text-align:center; border: solid 1px black;'>" . parent::current(). "</td>";
+		if ($this->beginChildren() == "id")
+		{
+			return "<td style='width:150px; text-align:center; border: solid 1px black;'>" . parent::current(). "m<a href='delete.php?id=".  p . "'>Delete</a></td>";
+		} else {
+        	return "<td style='width:150px; text-align:center; border: solid 1px black;'>" . parent::current(). "</td>";
+		}
     }
 
     function beginChildren() { 
@@ -64,25 +69,32 @@ class TableRows extends RecursiveIteratorIterator {
     function endChildren() { 
         echo "</tr>" . "\n";
     } 
-} 
-/*
-$servername = "localhost";
-$username = "username";
-$password = "password";
-$dbname = "myDBPDO";
-*/
+} */
+
 
 try {
     $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    $stmt = $conn->prepare("SELECT namn, antal, lagerplats FROM inventory"); 
+    $stmt = $conn->prepare("SELECT namn, antal, lagerplats, id FROM inventory"); 
     $stmt->execute();
 
-    // set the resulting array to associative
     $result = $stmt->setFetchMode(PDO::FETCH_ASSOC); 
-    foreach(new TableRows(new RecursiveArrayIterator($stmt->fetchAll())) as $k=>$v) { 
-        echo $v;
-    }
+  /*  foreach(new TableRows(new RecursiveArrayIterator($stmt->fetchAll())) as $k=>$v) { 
+        echo $v; 
+		
+    }*/
+	
+	foreach($stmt->fetchAll() as $k=>$v)
+{
+	echo "<tr>";
+	echo "<td style='width:150px; text-align:center; border: solid 1px black;'>" . $v["namn"]."</td>";
+	echo "<td style='width:150px; text-align:center; border: solid 1px black;'>" . $v["antal"]."</td>";
+	echo "<td style='width:150px; text-align:center; border: solid 1px black;'>" . $v["lagerplats"]."</td>";
+	echo "<td style='width:150px; text-align:center; border: solid 1px black;'>" ."<a href='delete.php?id=".  $v["id"] . "'>Delete</a></td>";
+	echo "</tr>";
+	
+	
+	}
 }
 catch(PDOException $e) {
     echo "Error: " . $e->getMessage();

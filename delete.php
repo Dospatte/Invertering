@@ -4,7 +4,7 @@ $db_user = 'root';
 $db_pass = 'root';
 $db_name = 'inventory';
 
-if (!isset($_GET['namn']))
+if (!isset($_GET['id']))
 {
     echo 'No ID was given...';
     exit;
@@ -16,13 +16,13 @@ if ($con->connect_error)
     die('Connect Error (' . $con->connect_errno . ') ' . $con->connect_error);
 }
 
-$sql = "DELETE FROM inventory WHERE namn = ?";
+$sql = "DELETE FROM inventory WHERE id = ?";
 if (!$result = $con->prepare($sql))
 {
     die('Query failed: (' . $con->errno . ') ' . $con->error);
 }
 
-if (!$result->bind_param('i', $_GET['namn']))
+if (!$result->bind_param('i', $_GET['id']))
 {
     die('Binding parameters failed: (' . $result->errno . ') ' . $result->error);
 }
@@ -35,7 +35,7 @@ if (!$result->execute())
 if ($result->affected_rows > 0)
 {
     echo "The ID was deleted with success.";
-	echo "<html><meta http-equiv=\"refresh\" content=\"1;URL='http://localhost/invertering/index.php'\"><p>Please wait 1 seconds...</p></html>";
+	echo "<html><meta http-equiv=\"refresh\" content=\"0;URL='http://localhost/invertering/index.php'\"><p>Please wait 1 seconds...</p></html>";
 }
 else
 {
@@ -43,3 +43,7 @@ else
 }
 $result->close();
 $con->close();
+
+
+
+

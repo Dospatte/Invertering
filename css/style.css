@@ -1,8 +1,16 @@
 @charset "UTF-8";
 
 #input{
-	text-align:center;}
+	text-align:center;
+	}
 #header{
-	text-align:center;}
+	text-align:center;
+	}
 #submit{
-	margin-top:1em;}
+	margin-top:1em;
+	margin-bottom:2em;
+	}
+#test{
+	margin:20px;
+	}
+

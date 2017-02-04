@@ -24,7 +24,7 @@ catch(PDOException $e)
 <?php
 if ($namn == null) {
 
-print "<script>alert('var god och skriv något...')</script>";
+
 } 
 else {
 
